@@ -1,4 +1,6 @@
 # Ex.No:1a  			Study of Socket Programming
+## NAME : MATHESH S
+## REG : 212223230123
 
 ## Aim: 
 To perform a study on Socket Programming
@@ -57,20 +59,18 @@ Socket programming finds applications in various domains, including web developm
 ## Client:
 ```
 import socket
+from datetime import datetime
 s=socket.socket()
 s.bind(('localhost',8000))
 s.listen(5)
 c,addr=s.accept()
-while True:
-	i=input("Enter a data: ")
-	c.send(i.encode())
-	ack=c.recv(1024).decode()
-		if ack:
-			print(ack)
-			continue
-		else:
-			c.close()
-			break
+print("Client Address: ",addr)
+now = datetime.now()
+c.send(now.strftime("Date: %d / %m / %Y and Time: %H : %M : %S").encode())
+ack = c.recv(1024).decode()
+if ack:
+    print(ack)
+c.close()
 ```
 ## Server:
 
@@ -78,20 +78,22 @@ while True:
 import socket
 s=socket.socket()
 s.connect(('localhost',8000))
-while True:
-	print(s.recv(1024).decode())
-	s.send("Acknowledgement Recived".encode())
+print(s.getsockname())
+print(s.recv(1024).decode())
+s.send("Acknowledgement received from the server.".encode())
 
 ```
 
 ## Output:
 ## Client:
 
-![alt text](image.png)
+![image](https://github.com/Yt8md/SocketStudy/assets/144443644/afbf4cde-2efd-4bed-8015-b3bf7d11b360)
+
 
 ## Server:
 
-![alt text](image-1.png)
+![image](https://github.com/Yt8md/SocketStudy/assets/144443644/57c45885-bc06-4063-9c99-12ba2b689033)
+
 
 
 
